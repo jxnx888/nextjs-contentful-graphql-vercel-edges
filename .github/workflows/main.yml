@@ -31,6 +31,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
 #          PRODUCTION: false # Don't deploy to production environment
   E2E_Test:
+    needs: [Deploy_Vercel]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
