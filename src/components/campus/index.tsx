@@ -12,7 +12,7 @@ const Index = (props: IProps) => {
       {
         !_.isEmpty(content) && (
           <>
-            <div className={styles.campus} style={{backgroundImage: `url(${content?.image})`}}>
+            <div className={styles.campus} style={{backgroundImage: `url(${content?.image})`}} id={content?.name}>
               <h1 className={styles.title}>{content?.name}</h1>
               <div className={styles.logos}>
                 {
