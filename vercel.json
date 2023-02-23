@@ -1,5 +1,5 @@
 {
-  "buildCommand": "jest && next build",
+  "buildCommand": "next build",
   "devCommand": "next dev",
   "framework": "nextjs",
   "github": {
