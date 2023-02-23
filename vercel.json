@@ -1,0 +1,9 @@
+{
+  "buildCommand": "jest && next build",
+  "devCommand": "next dev",
+  "framework": "nextjs",
+  "github": {
+    "enabled": false,
+    "silent": true
+  }
+}

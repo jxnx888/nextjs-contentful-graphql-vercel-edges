@@ -1,0 +1,50 @@
+.container {
+  .campus {
+    height: 0;
+    width: 100%;
+    padding-bottom: 62.5%;
+    color: #ffffff;
+    position: relative;
+    background-size: contain;
+    .title{
+      font-size: 14vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .logos{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      .each_logo{
+        &:first-child{
+          margin-right: 15px;
+        }
+        &:last-child{
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+  /*.logos{
+    background-color: #000;
+    height: 100px;
+    transform: rotateZ(354deg);
+    position: relative;
+    z-index: 1;
+  }
+  .each_logo{
+    position: relative;
+    display: flex;
+    z-index: 9;
+  }*/
+}
