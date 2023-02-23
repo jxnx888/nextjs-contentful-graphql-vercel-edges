@@ -16,7 +16,7 @@ jobs:
       - name: Unit Test
         run: npm run test
   Deploy_Vercel:
-    needs: [test]
+    needs: [Unit_Test]
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
