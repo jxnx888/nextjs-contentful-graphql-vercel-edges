@@ -39,7 +39,8 @@ jobs:
       - run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - id: deploy
-        run: echo "::set-output name=url::$(yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+      - name: Set output
+        run: echo "{name}={url::$(yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})}" >> $GITHUB_OUTPUT
   E2E_Test:
     needs: [Deploy_Vercel]
     runs-on: ubuntu-latest
