@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: preview
-      url: ${{ vercel-preview.PREVIEW_URL }}
+      url: ${{ vars.PREVIEW_URL }}
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
