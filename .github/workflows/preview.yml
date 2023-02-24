@@ -1,10 +1,13 @@
-name: Deploy CI
+name: Preview Deploy
 on:
   push:
     branches:
-     - main
+      - develop
   pull_request:
     types: [opened, synchronize, reopened]
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 jobs:
   Unit_Test:
     runs-on: ubuntu-latest
@@ -37,7 +40,7 @@ jobs:
           github-token: ${{ secrets.GH_TOKEN }} #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
-#          PRODUCTION: false # Don't deploy to production environment
+          #          PRODUCTION: false # Don't deploy to production environment
           alias-domains: | #Optional
             staging.angular.vercel-action.amond.dev
             pr-{{PR_NUMBER}}.angular.vercel-action.amond.dev
