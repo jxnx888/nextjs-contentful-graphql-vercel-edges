@@ -1,47 +1,16 @@
-name: Preview Deploy
+name: Production Deploy
 on:
   push:
     branches:
-      - develop
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 jobs:
-  Unit_Test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Install dependencies
-        run: npm install
-      - name: Unit Test
-        run: npm run test
-  Deploy_Vercel:
-    needs: [Unit_Test]
-    runs-on: ubuntu-latest
-    environment:
-      name: preview
-      url: ${{ vars.PREVIEW_URL }}
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
-      - run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      - run: yarn vercel alias set ${{ vars.VERCEL_PREVIEW_URL }} ${{ vars.REWRITE_PREVIEW_URL }} --token=${{ secrets.VERCEL_TOKEN }}
   E2E_Test:
-    needs: [Deploy_Vercel]
-    if: github.event.deployment_status.state == 'success'
+    needs: [ Deploy_Vercel ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -54,3 +23,19 @@ jobs:
         run: npm install
       - name: Cypress Test
         run: npm run cypress
+  Deploy_Vercel:
+    needs: [E2E_Test]
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: ${{ vars.PRODUCTION_URL }}
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn install --immutable
+      - run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
