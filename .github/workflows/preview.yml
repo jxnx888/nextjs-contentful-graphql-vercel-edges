@@ -43,6 +43,7 @@ jobs:
       - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
 #      - run: yarn vercel alias set ${{ vars.VERCEL_PREVIEW_URL }} ${{ vars.REWRITE_PREVIEW_URL }} --token=${{ secrets.VERCEL_TOKEN }}
   Alias:
+    needs: [Deploy_Vercel]
     if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     steps:
@@ -52,7 +53,7 @@ jobs:
           vercel-preview-url: ${{ github.event.deployment_status.target_url }} #Required
           vercel-target-url: ${{ vars.REWRITE_PREVIEW_URL }} #Required
   E2E_Test:
-    needs: [Deploy_Vercel]
+    needs: [Alias]
     if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     steps:
