@@ -1,31 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).  And the template project also integrated with `Contentful`, `GraphQL`, `Vercel`, `GitHub`,  `Unit Test with Jest`, and `E2E Test with Cypress`. Using `GitHub Actions` build a CI/CD workflow (Unit Test => Deploy => E2E Test). 
 
 ## Getting Started
 
-First, run the development server:
+First, install all the dependence:
+
+```
+npm i
+```
+Before you run the development server, you have to add `ENV` to project:
+
+`CONTENTFUL_SPACE_ID`, `CONTENTFUL_DELIVERY_API_KEY`,`CONTENTFUL_PREVIEW_API_TOKEN`,`VERCEL_TOKEN`,`GH_TOKEN`(GitHub Token), `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` and `VERCEL_PREVIEW`
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### GitHub Actions
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`.github/workflows/preview.yml` will deploy the project to vercel preview once you push your changes to `develop` branch.
+`.github/workflows/preview.yml` will deploy the project to vercel production once you push your changes to `main` branch.
 
 ## Deploy on Vercel
 
